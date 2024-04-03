@@ -1,0 +1,1 @@
+"(Intercept)" "cprop" "dprop" "fprop" "gprop" "iprop" "meta2" "obstruct" "reservoir" "riverdist" "meta2:riverdist" "df" "logLik" "AICc" "delta" "weight"
