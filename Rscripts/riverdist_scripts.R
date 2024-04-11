@@ -1,3 +1,7 @@
+# scripts used for calculating river distance and stream/landscape characteristics along river paths
+
+# lots of large external GIS datasets used and lots of fiddling with river networks needed to do this - contact nerdbrained@gmail.com if you want explanation/help with these. 
+
 library(raster)
 library(rgdal)
 library(rgeos)
@@ -53,7 +57,7 @@ streamUTM$GNIS_Name[which.min(gDistance(ptsUTM[117,],streamUTM,byid=TRUE))]
 
 ArkRiv=stream[which(stream$GNIS_Name == "Arkansas River" | stream$GNIS_Name == "Cow Creek" | stream$GNIS_Name == "Spring Creek" | stream$GNIS_Name == "Peace Creek" | stream$GNIS_Name == "Walnut Creek"),]
 CimRiv=stream[which(stream$GNIS_Name == "Cimarron River" | stream$GNIS_Name == "Bluff Creek" | stream$GNIS_Name == "Cavalry Creek" | stream$GNIS_Name == "Crooked Creek" | stream$GNIS_Name == "Kiowa Creek" | stream$GNIS_Name == "Snake Creek" | stream$GNIS_Name == "Big Sandy Creek"),]
-##is wqeird!
+##is weird!
 ChikRiv=stream[which(stream$GNIS_Name == "North Fork Chikaskia River" | stream$GNIS_Name == "Duck Creek" | stream$GNIS_Name == "Sandy Creek" | stream$GNIS_Name == "Spring Creek" | stream$GNIS_Name == "East Sand Creek" | stream$GNIS_Name == "Argonia Creek" | stream$GNIS_Name == "Wild Horse Creek" | stream$GNIS_Name == "Sand Creek"),]
 ##
 MedRiv=stream[which(stream$GNIS_Name == "Medicine Lodge River" | stream$GNIS_Name == "Amber Creek" | stream$GNIS_Name == "Dog Creek" | stream$GNIS_Name == "Elm Creek" | stream$GNIS_Name == "Stolp Creek" | stream$GNIS_Name == "Antelope Creek" | stream$GNIS_Name == "North Branch Elm Creek" | stream$GNIS_Name == "North Elm Creek" | stream$GNIS_Name == "Crooked Creek" | stream$GNIS_Name == "Soldier Creek" | stream$GNIS_Name == "Turkey Creek" | stream$GNIS_Name == "East Branch South Elm Creek"),]
@@ -148,7 +152,6 @@ plot(fc_clipped,lwd=0.2)
 #NFNinnescah = [47]
 #western SFN = [48]
 #eastern SFN = [21]
-
 
 ############ produce files for riverdist
 ######## saltfork - done!
