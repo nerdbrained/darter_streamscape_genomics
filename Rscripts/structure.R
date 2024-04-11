@@ -1,5 +1,5 @@
 ## load packages
-library(LEA)
+#library(LEA)
 library(RColorBrewer)
 library(reshape2)
 library(plyr)
