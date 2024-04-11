@@ -1,7 +1,6 @@
-
 ## read genotype data
-## -------> get this file!!
-genos = read.table("arkrapt_CSUEcrag_prunedfin.t.lfmm")
+genos = read.table("genotype_files/arkrapt_CSUEcrag_prunedfin.t.lfmm")
+## metadata frame (sitef2_prune) can be recreated from "heterozygosity_paths.R" 
 genos$site=sitef2_prune$site
 genos$meta=sitef2_prune$meta
 
@@ -11,23 +10,23 @@ write.csv(genosort,"arkrapt_CSUEcrag_prunefinsort.csv")
 library(adegenet)
 library(hierfstat)
 
-allmeta=hierfstat::read.fstat("arkrapt_CSUEcrag_metarem_head.dat")
+allmeta=hierfstat::read.fstat("genotype_files/arkrapt_CSUEcrag_metarem_head.dat")
 pwise.WC=pairwise.WCfst(allmeta)
 pwise.nei=pairwise.neifst(allmeta)
 plot(pwise.WC[upper.tri(pwise.WC)],pwise.nei[upper.tri(pwise.nei)])
-write.table(pwise.WC,"metapop_WCFST",row.names=FALSE,col.names=FALSE)
-write.table(pwise.nei,"metapop_neiFST",row.names=FALSE,col.names=FALSE)
+write.table(pwise.WC,"analysis_outputs/metapop_WCFST",row.names=FALSE,col.names=FALSE)
+write.table(pwise.nei,"analysis_outputs/metapop_neiFST",row.names=FALSE,col.names=FALSE)
 
-laremmeta=hierfstat::read.fstat("arkrapt_CSUEcrag_metalarem_head.dat")
+laremmeta=hierfstat::read.fstat("genotype_files/arkrapt_CSUEcrag_metalarem_head.dat")
 pwise.WC=pairwise.WCfst(laremmeta)
 
 pwise.nei=pairwise.neifst(laremmeta)
 plot(pwise.WC[upper.tri(pwise.WC)],pwise.nei[upper.tri(pwise.nei)])
-write.table(pwise.WC,"metapop_larem_WCFST",row.names=FALSE,col.names=FALSE)
-write.table(pwise.nei,"metapop_larem_neiFST",row.names=FALSE,col.names=FALSE)
+write.table(pwise.WC,"analysis_outputs/metapop_larem_WCFST",row.names=FALSE,col.names=FALSE)
+write.table(pwise.nei,"analysis_outputs/metapop_larem_neiFST",row.names=FALSE,col.names=FALSE)
 
-### fst heatmap
-metafst=read.table("/Users/nerdbrained/Desktop/CSUEcrag/metapop_larem_neiFST")
+### plot fst heatmap
+metafst=read.table("analysis_outputs/metapop_larem_neiFST")
 
 names(metafst)=c("Big Sandy + Rush Creeks","Chikaskia River","Cimarron River","Illinois River","Lower Arkansas River","Medicine Lodge River","Middle Arkansas River","North Fork Ninnescah River","Rattlesnake Creek","Salt Fork Arkansas River","South Fork Ninnescah River","Spring River","Upper Arkansas River","Walnut Creek")
 rownames(metafst)=c("Big Sandy + Rush Creeks","Chikaskia River","Cimarron River","Illinois River","Lower Arkansas River","Medicine Lodge River","Middle Arkansas River","North Fork Ninnescah River","Rattlesnake Creek","Salt Fork Arkansas River","South Fork Ninnescah River","Spring River","Upper Arkansas River","Walnut Creek")

@@ -1,3 +1,5 @@
+# get # of indels (length of MANTA table)
+
 coloindel=read.table("analysis_outputs/manta_indelsizes/colorado_indelsizes")
 walindel=read.table("analysis_outputs/manta_indelsizes/walnut_indelsizes")
 arkindel=read.table("analysis_outputs/manta_indelsizes/lowerark_indelsizes")
@@ -12,7 +14,7 @@ sfnindel=read.table("analysis_outputs/manta_indelsizes/sfnin_indelsizes")
 larkindel=read.table("analysis_outputs/manta_indelsizes/lark_indelsizes")
 rattleindel=read.table("analysis_outputs/manta_indelsizes/rattle_indelsizes")
 
-
+#get FSTs
 
 metafsts=read.table("analysis_outputs/metafsts.txt",header=F)
 
@@ -38,24 +40,9 @@ fstfin$V2[2]="Cimarron"
 
 fstfin$nindel[11]=nrow(coloindel)
 
-fstfin$col=c("#FF6D00","#FFDB00","#49FF00","#00FF24","#00FFFF","#0092FF","#0024FF","#4900FF","#B600FF","#FF006D","#FF00DB")
 fstfin$nindel=as.integer(fstfin$nindel)
-fstfin$V4=as.numeric(fstfin$V4)
-
-#plot(fstfin$V3,fstfin$nindel)
-
-plot(fstfin$V4,fstfin$nindel,xlab="FST relative to Colorado",ylab="# of indels",pch=19,col=fstfin$col)
-
-#lm1=lm(nindel~V3,data=fstvsindel)
-lm_fst=lm(nindel~V4,data=fstfin)
-
 
 fstfin$divtime=c(2.81,2.81,1.37,2.81,2.81,0.94,2.81,2.81,5.69,0.62,0.35)
-
-plot(fstfin$divtime,fstfin$nindel,xlab="Divergence time relative to Colorado (mya)",ylab="# of indels",pch=19,col=fstfin$col)
-
-lm_div=lm(nindel~divtime,data=fstfin)
-
 
 metafst=read.table("analysis_outputs/metapop_WCFST")
 
@@ -76,24 +63,7 @@ fstfin$FST[10]=colo_ave[14]
 fstfin$FST[11]=colo_ave[12]
 fstfin$FST[11]=(0.2177414+0.2984260+0.1316401)/3
 
-fstfin$col2=c("#FF0000","#FF8B00","#00B9FF","#00FF2E","#5D00FF","#00B9FF","#002EFF","#5D00FF","#FF00DB","#00B9FF","#E8FF00")
-
-par(mai=c(1.1,1.1,1.1,1.1),xpd=FALSE)
-
-plot(fstfin$FST,fstfin$nindel,xlab="FST relative to Colorado reference",ylab="# of indels relative to Colorado reference",pch=19,col=fstfin$col2,cex=1.8,cex.lab=1.5,cex.axis=1.5)
-
-lm_fst=lm(nindel~FST,data=fstfin)
-
-#get predicted y values using regression equation
-newx <- seq(min(fstfin$FST), max(fstfin$nindel), length.out=100)
-preds <- predict(lm_fst, newdata = data.frame(FST=newx), interval = 'confidence')
-
-#add fitted regression line
-abline(lm_fst,xlim,lty=2)
-
-#add dashed lines for confidence bands
-lines(newx, preds[ ,3], lty = 'dashed', col = 'blue')
-lines(newx, preds[ ,2], lty = 'dashed', col = 'blue')
+# plot indels vs FST and divergence time
 
 library(colorspace)
 
@@ -104,15 +74,6 @@ fstfin$shape=c(21,21,21,21,22,23,21,21,21,22,21)
 fstfin$tcols=adjust_transparency(fstfin$col2,alpha=0.8)
 
 fstfin$sizes=(fstfin$shape/10.5)+((fstfin$shape-21)*0.3)
-
-
-plot(fstfin$divtime,fstfin$nindel,ylim=c(0,15000),xlim=c(0,6),xlab="Divergence time relative to Colorado reference",ylab="# of indels relative to Colorado reference",pch=fstfin$shape,bg=fstfin$tcols,cex=fstfin$sizes,cex.lab=1.5,cex.axis=1.5)
-
-lm_div=lm(nindel~divtime,data=fstfin)
-
-abline(lm_div,xlim,lty=2)
-
-plot(fstfin$FST,fstfin$nindel,ylim=c(0,15000),xlim=c(0,0.8),xlab="FST relative to Colorado reference",ylab="# of indels relative to Colorado reference",pch=fstfin$shape,bg=fstfin$tcols,cex=fstfin$sizes,cex.lab=1.5,cex.axis=1.5)
 
 
 par(mfrow=c(1,2),mai=c(1,1,1,0))
